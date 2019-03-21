@@ -5,12 +5,13 @@ jobs:
       - image: circleci/openjdk:8
       - image: circleci/redis:latest
     steps:
+      - checkout
+
       - run:
           name: Install elastic-search-6.3.2
           command: curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.2.deb
                     && sudo dpkg -i --force-confnew elasticsearch-6.3.2.deb && sudo service elasticsearch
                     restart
-      - checkout
 
       - run:
           name: Load jtctl jar file
@@ -21,8 +22,8 @@ jobs:
           key: lp-dependency-cache-{{ checksum "pom.xml" }}
       
       - run: mvn clean install -DskipTests
-      - run: cd searchIndex-platform/module/search-api/search-manager && mvn play2:dist
-      - run: mvn clean package  -DskipTests -P samza-jobs
+      #- run: cd searchIndex-platform/module/search-api/search-manager && mvn play2:dist
+      #- run: mvn clean package  -DskipTests -P samza-jobs
       
       - save_cache:
           key: lp-dependency-cache-{{ checksum "pom.xml" }}
