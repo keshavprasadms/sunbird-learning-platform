@@ -1,7 +1,9 @@
 version: 2.1
 jobs:
   lp-build:
-    machine: true
+    docker:
+      - image: circleci/openjdk:8
+      - image: circleci/redis:latest
     steps:
       - checkout
       
