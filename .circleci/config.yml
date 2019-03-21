@@ -5,8 +5,18 @@ jobs:
       - image: circleci/openjdk:8
       - image: circleci/redis:latest
     steps:
+      - run:
+          name: Install elastic-search-6.3.2
+          command: curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.2.deb
+                    && sudo dpkg -i --force-confnew elasticsearch-6.3.2.deb && sudo service elasticsearch
+                    restart
       - checkout
-      
+
+      - run:
+          name: Load jtctl jar file
+          command: mvn install:install-file -Dfile=${CIRCLE_WORKING_DIRECTORY}/orchestrator/module/interpreter-api/lib/jtcl-2.7.0.jar
+                    -DgroupId=tcl.lang -DartifactId=jtcl -Dversion=2.7.0 -Dpackaging=jar
+
       - restore_cache:
           key: lp-dependency-cache-{{ checksum "pom.xml" }}
       
