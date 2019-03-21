@@ -4,14 +4,9 @@ jobs:
     docker:
       - image: circleci/openjdk:8
       - image: circleci/redis:latest
+      - image: docker.elastic.co/elasticsearch/elasticsearch:6.2.3
     steps:
       - checkout
-
-      - run:
-          name: Install elastic-search-6.3.2
-          command: curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.3.2.deb
-                    && sudo dpkg -i --force-confnew elasticsearch-6.3.2.deb && sudo service elasticsearch
-                    restart
 
       - run:
           name: Check elastic-search status
