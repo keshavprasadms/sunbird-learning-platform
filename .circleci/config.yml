@@ -15,7 +15,7 @@ jobs:
 
       - run:
           name: Load jtctl jar file
-          command: mvn install:install-file -Dfile=${CIRCLE_WORKING_DIRECTORY}/orchestrator/module/interpreter-api/lib/jtcl-2.7.0.jar
+          command: mvn install:install-file -Dfile=./orchestrator/module/interpreter-api/lib/jtcl-2.7.0.jar
                     -DgroupId=tcl.lang -DartifactId=jtcl -Dversion=2.7.0 -Dpackaging=jar
 
       - restore_cache:
