@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   lp-build:
     docker:
-      - image: circleci/openjdk:8u181-jdk
+      - image: circleci/openjdk:8u171-jdk
       - image: circleci/redis:latest
       - image: docker.elastic.co/elasticsearch/elasticsearch:6.2.3
     steps:
@@ -24,16 +24,16 @@ jobs:
                     && find ./ -type f -name "application.conf" -print0 | xargs -0 sed -i -e 's/\/data\//~\//g' 
                     && find ./ -type f -name "*.java" -print0 | xargs -0 sed -i -e 's/\/data\//~\//g'
 
-      - restore_cache:
-          key: lp-dependency-cache-{{ checksum "pom.xml" }}
+      # - restore_cache:
+      #     key: lp-dependency-cache-{{ checksum "pom.xml" }}
       
       - run: mvn clean install
       #- run: cd searchIndex-platform/module/search-api/search-manager && mvn play2:dist
       #- run: mvn clean package  -DskipTests -P samza-jobs
       
-      - save_cache:
-          key: lp-dependency-cache-{{ checksum "pom.xml" }}
-          paths: ~/.m2
+      # - save_cache:
+      #     key: lp-dependency-cache-{{ checksum "pom.xml" }}
+      #     paths: ~/.m2
         
 workflows:
   version: 2.1
