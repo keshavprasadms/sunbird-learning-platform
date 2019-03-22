@@ -9,6 +9,7 @@ jobs:
       # Customize the JVM maximum heap limit
       MAVEN_OPTS: "-Xmx4G"
       JAVA_OPTS: "-Xms4G -Xmx5G"
+    resource_class: large
     steps:
       - checkout
 
